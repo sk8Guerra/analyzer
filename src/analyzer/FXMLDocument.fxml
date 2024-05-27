@@ -5,13 +5,15 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="518.0" prefWidth="626.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="analyzer.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="453.0" prefWidth="626.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="analyzer.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <TextArea layoutX="35.0" layoutY="63.0" prefHeight="114.0" prefWidth="557.0" />
-      <TextArea layoutX="35.0" layoutY="330.0" prefHeight="114.0" prefWidth="557.0" />
-      <Label layoutX="35.0" layoutY="40.0" prefHeight="17.0" prefWidth="147.0" text="Ingresar texto" />
-      <Button layoutX="35.0" layoutY="191.0" mnemonicParsing="false" text="sintactico" />
-      <Button layoutX="123.0" layoutY="191.0" mnemonicParsing="false" text="semantico" />
+      <TextArea layoutX="35.0" layoutY="72.0" prefHeight="114.0" prefWidth="557.0" />
+      <TextArea layoutX="35.0" layoutY="275.0" prefHeight="114.0" prefWidth="557.0" />
+      <Label layoutX="35.0" layoutY="40.0" prefHeight="17.0" prefWidth="147.0" text="Ingresar texto a analizar o" />
+      <Button layoutX="91.0" layoutY="232.0" mnemonicParsing="false" text="sintactico" />
+      <Button layoutX="35.0" layoutY="232.0" mnemonicParsing="false" text="lexico" />
+      <Label layoutX="35.0" layoutY="208.0" prefHeight="17.0" prefWidth="147.0" text="Realizar analisis:" />
+      <Button layoutX="182.0" layoutY="35.0" mnemonicParsing="false" text="cargar archivo" />
     </children>
 </AnchorPane>
