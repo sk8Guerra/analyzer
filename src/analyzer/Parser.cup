@@ -1,0 +1,22 @@
+package analyzer;
+
+import java_cup.runtime.Symbol;
+
+terminal int NUM;
+terminal String ID, INT, RETURN, MAIN;
+terminal String ASSIGN, SEMI, LPAREN, RPAREN, LBRACE, RBRACE;
+
+non terminal void program, stmt_list, stmt, main_decl;
+non terminal stmt decl;
+
+program ::= main_decl;
+
+main_decl ::= MAIN LPAREN RPAREN LBRACE stmt_list RBRACE;
+
+stmt_list ::= stmt_list stmt
+            | /* empty */;
+
+stmt ::= decl;
+
+decl ::= INT ID ASSIGN NUM SEMI
+       | RETURN NUM SEMI;
