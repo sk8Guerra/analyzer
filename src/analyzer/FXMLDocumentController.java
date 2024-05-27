@@ -4,12 +4,21 @@
  */
 package analyzer;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 
 /**
  *
@@ -17,18 +26,61 @@ import javafx.scene.control.Label;
  */
 public class FXMLDocumentController implements Initializable {
     
+    List<identificador> tokenslist;
+
     @FXML
     private Label label;
-    
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    private TextArea textArea1;
+
+    @FXML
+    private TextArea textArea2;
+
+    @FXML
+    private void handleButtonAction(ActionEvent event) throws FileNotFoundException, IOException {
+        // Reader reader = new BufferedReader(new FileReader("fichero.txt"));
+        Lexer lexer = new Lexer(new StringReader(textArea1.getText()));
+        tokenslist = new LinkedList<identificador>();
+        
+        int contIDs=0;
+        String resultado = "\n";
+        while (true) {
+            Token token = lexer.yylex();
+            if (token == null) {
+                for (int i = 0; i < tokenslist.size(); i++) {
+                    System.out.println(tokenslist.get(i).nombre + "=" + tokenslist.get(i).ID);
+                }
+                textArea2.setText(resultado);
+                return;
+            }
+            switch (token) {
+
+                case ERROR:
+                    resultado = resultado + "Error, simbolo no reconocido ";
+                    break;
+
+                case CADENA: {
+                    contIDs++;
+                    identificador tokenitem = new identificador();
+                    tokenitem.nombre = lexer.lexeme;
+                    tokenitem.ID = contIDs;
+                    tokenslist.add(tokenitem);
+                    resultado = resultado + "<TOKEN: STRING" + contIDs + "> ";
+                    break;
+                }
+                case NUM:
+                    resultado = resultado + "<TOKEN:NUMEROS " + lexer.lexeme + "> ";
+                    break;
+                default:
+                    resultado = resultado + "TOKEN <" + lexer.lexeme + ">\n ";
+            }
+        }
+
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

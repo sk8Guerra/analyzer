@@ -4,7 +4,6 @@
  */
 package analyzer;
 
-import java.io.StringReader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
