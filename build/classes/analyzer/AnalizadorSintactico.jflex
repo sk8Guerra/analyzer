@@ -1,25 +1,19 @@
 package analyzer;
-import static analyzer.Token2.*;
+import static analyzer.ParserTokens.*;
 %%
-%class Lexer2
-%type Token
+%class Parser
+%type ParserTokens
 
-NUMERAL=[#]
-INCLUDE="include"
-LIBRERIA="<iostream.h>"
-LIBRERIA2="<conio.h>"
-INT="int"
 MAIN="main"
-SPACE=" "
 PARENTI="()"
 LLAVEI= "{"
+VAR_TYPE="int"
+VAR_NAME=[a-zA-Z]
+VAR_VAL=[0-9]
 LLAVED= "}"
-COU = "cout"
-COMP="<"
-HOLA=[a-zA-z]
-ENDL="endl"
-PUNTO_COMA=[;]
-GETCH="getch"
+SPACE=" "
+ASSIGN="="
+PUNTO_COMA=";"
 
 
 
@@ -34,15 +28,8 @@ public String lexeme;
 {WHITE} {/* ignore */}
 "//".* {/* ignore */}
 
-
-
-
-{NUMERAL}{INCLUDE}{LIBRERIA} {lexeme=yytext(); return LINEA1_CORRECTO;}
-{NUMERAL}{INCLUDE}{LIBRERIA2} {lexeme=yytext(); return LINEA2_CORRECTO;}
-{INT}{SPACE}{MAIN}{PARENTI} {lexeme=yytext(); return LINEA3_CORRECTO;}
-{LLAVEI} {lexeme=yytext(); return LINEA4_CORRECTO;}
-{COU}{COMP}{COMP}{HOLA}{COMP}{COMP}{ENDL}{PUNTO_COMA} {lexeme=yytext(); return LINEA5_CORRECTO;}
-{GETCH}{PARENTI}{PUNTO_COMA} {lexeme=yytext(); return LINEA6_CORRECTO;}
-{LLAVED} {lexeme=yytext(); return LINEA7_CORRECTO;}
+{MAIN}{PARENTI}{SPACE}{LLAVEI} {lexeme=yytext(); return LINEA1_CORRECTO;}
+{VAR_TYPE}{SPACE}{VAR_NAME}{ASSIGN}{VAR_VAL}{PUNTO_COMA} {lexeme=yytext(); return LINEA2_CORRECTO;}
+{LLAVED} {lexeme=yytext(); return LINEA3_CORRECTO;}
 
 . {return ERROR;}

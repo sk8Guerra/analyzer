@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="analyzer.jar" size="19480" download="eager" />
+    <jar href="analyzer.jar" size="24161" download="eager" />
     <jar href="lib/java-cup-11b-runtime.jar" size="30960" download="eager" />
     <jar href="lib/java-cup-11b.jar" size="122080" download="eager" />
     <jar href="lib/jflex-full-1.7.0.jar" size="1292583" download="eager" />

@@ -7,11 +7,8 @@ package analyzer;
 import static analyzer.Token.CADENA;
 import static analyzer.Token.ERROR;
 import static analyzer.Token.NUM;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.LinkedList;
@@ -41,7 +38,6 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) throws FileNotFoundException, IOException {
-        // Reader reader = new BufferedReader(new FileReader("fichero.txt"));
         Lexer lexer = new Lexer(new StringReader(textArea1.getText()));
         tokenslist = new LinkedList<identificador>();
         
@@ -85,35 +81,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void analizarSintacticamente(ActionEvent event) throws FileNotFoundException, IOException {
         // Reader reader = new BufferedReader(new FileReader("fichero.txt"));
-        Lexer2 lexer = new Lexer2(new StringReader(textArea1.getText()));
-        tokenslist = new LinkedList<identificador>();
-        
-        int contIDs=0;
-        String resultado = "\n";
+        Parser lexer = new Parser(new StringReader(textArea1.getText()));
         textArea2.setText("");
         while(true){
-            Token2 token = lexer.yylex();
-            if(token==null){
-                textArea2.setText(textArea2.getText()+"Fin de Expresion"+"\n");
-                //System.out.println("EOF");
-                return;
-            }
-            switch(token){
-                case Digito:
-                    textArea2.setText(textArea2.getText()+"Token Numeros:" +lexer.lexeme+"\n");
-                    //System.out.println("TOKEN: "+token+" "+lexer.lexeme);
-                break;
-                     case String:
-                    textArea2.setText(textArea2.getText()+"Token Palabras:"+lexer.lexeme+"\n");
-                    //System.out.println("TOKEN: "+token+" "+lexer.lexeme);
-                break;
-                    
-                    
-                    
-                default:
-                    textArea2.setText(textArea2.getText()+"SINTACTICO: "+token+"\n");
-                    //System.out.println("TOKEN: "+token);
-            }
+            ParserTokens token = lexer.yylex();
+            if(token == null) { return; }
+            textArea2.setText(textArea2.getText() + "Sintaxis: " + token + "\n");
         }
 
     }
