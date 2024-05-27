@@ -1,22 +1,25 @@
-package analyzer;
+parser code {:
+    public static void main(String[] args) throws Exception {
+        Lexer lexer = new Lexer(new java.io.InputStreamReader(System.in));
+        Parser parser = new Parser(lexer);
+        parser.parse();
+    }
+:}
 
-import java_cup.runtime.Symbol;
+terminal MAIN, LPAREN, RPAREN, LBRACE, RBRACE, INT, SEMICOLON, EQUALS;
+terminal Integer NUMBER;
+terminal String IDENTIFIER;
 
-terminal int NUM;
-terminal String ID, INT, RETURN, MAIN;
-terminal String ASSIGN, SEMI, LPAREN, RPAREN, LBRACE, RBRACE;
+non terminal program, function, block, statement, declaration;
 
-non terminal void program, stmt_list, stmt, main_decl;
-non terminal stmt decl;
+program ::= function;
 
-program ::= main_decl;
+function ::= MAIN LPAREN RPAREN block
+            | MAIN LPAREN RPAREN block {: System.out.println("Función principal reconocida."); :};
 
-main_decl ::= MAIN LPAREN RPAREN LBRACE stmt_list RBRACE;
+block ::= LBRACE statement RBRACE;
 
-stmt_list ::= stmt_list stmt
-            | /* empty */;
+statement ::= declaration;
 
-stmt ::= decl;
-
-decl ::= INT ID ASSIGN NUM SEMI
-       | RETURN NUM SEMI;
+declaration ::= INT IDENTIFIER EQUALS NUMBER SEMICOLON
+               | INT IDENTIFIER EQUALS NUMBER SEMICOLON {: System.out.println("Declaración de variable reconocida: int " + $2 + " = " + $4); :};

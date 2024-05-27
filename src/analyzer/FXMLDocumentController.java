@@ -4,6 +4,9 @@
  */
 package analyzer;
 
+import static analyzer.Token.CADENA;
+import static analyzer.Token.ERROR;
+import static analyzer.Token.NUM;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -50,6 +53,7 @@ public class FXMLDocumentController implements Initializable {
                 for (int i = 0; i < tokenslist.size(); i++) {
                     System.out.println(tokenslist.get(i).nombre + "=" + tokenslist.get(i).ID);
                 }
+                textArea2.setText("");
                 textArea2.setText(resultado);
                 return;
             }
@@ -73,6 +77,42 @@ public class FXMLDocumentController implements Initializable {
                     break;
                 default:
                     resultado = resultado + "TOKEN <" + lexer.lexeme + ">\n ";
+            }
+        }
+
+    }
+    
+    @FXML
+    private void analizarSintacticamente(ActionEvent event) throws FileNotFoundException, IOException {
+        // Reader reader = new BufferedReader(new FileReader("fichero.txt"));
+        Lexer2 lexer = new Lexer2(new StringReader(textArea1.getText()));
+        tokenslist = new LinkedList<identificador>();
+        
+        int contIDs=0;
+        String resultado = "\n";
+        textArea2.setText("");
+        while(true){
+            Token2 token = lexer.yylex();
+            if(token==null){
+                textArea2.setText(textArea2.getText()+"Fin de Expresion"+"\n");
+                //System.out.println("EOF");
+                return;
+            }
+            switch(token){
+                case Digito:
+                    textArea2.setText(textArea2.getText()+"Token Numeros:" +lexer.lexeme+"\n");
+                    //System.out.println("TOKEN: "+token+" "+lexer.lexeme);
+                break;
+                     case String:
+                    textArea2.setText(textArea2.getText()+"Token Palabras:"+lexer.lexeme+"\n");
+                    //System.out.println("TOKEN: "+token+" "+lexer.lexeme);
+                break;
+                    
+                    
+                    
+                default:
+                    textArea2.setText(textArea2.getText()+"SINTACTICO: "+token+"\n");
+                    //System.out.println("TOKEN: "+token);
             }
         }
 
