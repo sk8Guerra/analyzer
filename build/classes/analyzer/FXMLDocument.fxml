@@ -14,6 +14,6 @@
       <Button layoutX="91.0" layoutY="232.0" mnemonicParsing="false" onAction="#analizarSintacticamente" text="sintactico" />
       <Button layoutX="35.0" layoutY="232.0" mnemonicParsing="false" onAction="#handleButtonAction" text="lexico" />
       <Label layoutX="35.0" layoutY="208.0" prefHeight="17.0" prefWidth="147.0" text="Realizar analisis:" />
-      <Button layoutX="182.0" layoutY="35.0" mnemonicParsing="false" text="cargar archivo" />
+      <Button layoutX="182.0" layoutY="35.0" mnemonicParsing="false" onAction="#handleCargarArchivo" text="cargar archivo" />
     </children>
 </AnchorPane>

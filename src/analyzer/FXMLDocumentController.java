@@ -4,6 +4,8 @@
  */
 package analyzer;
 
+import java.io.*;
+
 import static analyzer.Token.CADENA;
 import static analyzer.Token.ERROR;
 import static analyzer.Token.NUM;
@@ -16,9 +18,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  *
@@ -91,6 +96,41 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
+    @FXML
+    private void handleCargarArchivo(ActionEvent event) throws FileNotFoundException, IOException {
+        // Reader reader = new BufferedReader(new FileReader("fichero.txt"));
+                    FileChooser fileChooser = new FileChooser();
+                    
+                            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                            
+			File file = fileChooser.showOpenDialog(window);
+		
+                        if(file!=null){
+                            textArea1.setText("");
+				FileReader fr = null;
+				BufferedReader br = null;
+				String texto = "";
+				try {
+					fr = new FileReader(file);
+					br = new BufferedReader(fr);
+					String st = br.readLine();
+					while (st != null) {
+						texto = texto + st + "\n";
+						st = br.readLine();
+					}
+				} catch (Exception e) {
+					textArea1.appendText(e.toString());
+				} finally {
+					try {
+						fr.close();
+					} catch (Exception e2) {
+						textArea1.appendText(e2.toString());
+					}
+				}
+				textArea1.appendText(texto);
+			}
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
